@@ -5,6 +5,7 @@ exports.handler = function(event, context, callback){
   let body = event.body;
   let bodyObj = querystring.parse(body);
   let responseUrl = bodyObj.response_url;
+  responseUrl = responseUrl.replace('http://','');
   let response = {
     "response_type": "in_channel",
     "text": bodyObj.text,
@@ -18,6 +19,7 @@ exports.handler = function(event, context, callback){
       "Content-type": "application/json",
     },
     hostname: responseUrl,
+    port: 443,
     body: response,
   });
 
