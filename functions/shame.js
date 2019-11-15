@@ -1,5 +1,4 @@
 const querystring = require('querystring');
-const https = require("https");
 
 exports.handler = function(event, context, callback){
   let body = event.body;
@@ -12,16 +11,10 @@ exports.handler = function(event, context, callback){
   };
   response = JSON.stringify(response);
 
-  https.request({
-    method: "POST",
-    statusCode: 200,
-    headers: {
-      "Content-type": "application/json",
-    },
-    hostname: responseUrl,
-    port: 443,
-    body: response,
-  });
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", responseUrl, true);
+  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  xhr.send(response);
 
   callback(null, {
     statusCode: 200,
