@@ -3,6 +3,12 @@ const https = require("https");
 const url = require("url");
 
 exports.handler = function(event, context, callback){
+  callback(null, {
+    statusCode: 200,
+    body: "shame sent",
+  });
+  
+  
   let body = event.body;
   let bodyObj = querystring.parse(body);
   let responseUrl = bodyObj.response_url;
@@ -24,10 +30,5 @@ exports.handler = function(event, context, callback){
     path: options.pathname,
     port: options.port,
     body: response,
-  });
-
-  callback(null, {
-    statusCode: 200,
-    body: "shame sent",
   });
 };
