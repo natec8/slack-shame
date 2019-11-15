@@ -1,6 +1,6 @@
 const querystring = require('querystring');
 const https = require("https");
-const URL = require("url");
+const url = require("url");
 
 exports.handler = function(event, context, callback){
   let body = event.body;
@@ -12,7 +12,7 @@ exports.handler = function(event, context, callback){
   };
   response = JSON.stringify(response);
   
-  const options = new URL(responseUrl);
+  const options = url.parse(responseUrl);
 
   https.request({
     method: "POST",
