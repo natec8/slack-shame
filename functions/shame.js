@@ -1,20 +1,30 @@
 const querystring = require('querystring');
+const https = require("https");
+const URL = require("url");
 
 exports.handler = function(event, context, callback){
   let body = event.body;
   let bodyObj = querystring.parse(body);
   let responseUrl = bodyObj.response_url;
-  responseUrl = responseUrl.replace('http://','');
   let response = {
     "response_type": "in_channel",
     "text": bodyObj.text,
   };
   response = JSON.stringify(response);
+  
+  const options = new URL(responseUrl);
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", responseUrl, true);
-  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-  xhr.send(response);
+  https.request({
+    method: "POST",
+    statusCode: 200,
+    headers: {
+      "Content-type": "application/json",
+    },
+    hostname: options.hostname,
+    path: options.pathname,
+    port: options.port,
+    body: response,
+  });
 
   callback(null, {
     statusCode: 200,
