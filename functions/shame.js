@@ -11,14 +11,14 @@ exports.handler = function(event, context, callback){
   };
   response = JSON.stringify(response);
 
-  const response = fetch(responseUrl, {
+  fetch(responseUrl, {
     method: "post",
     statusCode: 200,
     headers: {
         "Content-type": "application/json",
     },
     body: response,
-});
+  });
   
   callback(null, {
     statusCode: 200,
