@@ -6,8 +6,8 @@ exports.handler = function(event, context, callback){
   let bodyObj = querystring.parse(body);
   let responseUrl = bodyObj.response_url;
   let response = {
-      "response_type": "in_channel",
-      "text": bodyObj.text,
+    "response_type": "in_channel",
+    "text": bodyObj.text,
   };
   response = JSON.stringify(response);
 
@@ -15,13 +15,13 @@ exports.handler = function(event, context, callback){
     method: "post",
     statusCode: 200,
     headers: {
-        "Content-type": "application/json",
+      "Content-type": "application/json",
     },
     body: response,
   });
-  
+
   callback(null, {
     statusCode: 200,
-    body: "shame sent".
+    body: "shame sent",
   });
 };
