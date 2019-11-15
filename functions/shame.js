@@ -1,5 +1,5 @@
 const querystring = require('querystring');
-const fetch = require("node-fetch");
+const https = require("https");
 
 exports.handler = function(event, context, callback){
   let body = event.body;
@@ -11,12 +11,13 @@ exports.handler = function(event, context, callback){
   };
   response = JSON.stringify(response);
 
-  fetch(responseUrl, {
-    method: "post",
+  https.request({
+    method: "POST",
     statusCode: 200,
     headers: {
       "Content-type": "application/json",
     },
+    hostname: responseUrl,
     body: response,
   });
 
