@@ -1,6 +1,8 @@
 exports.handler = function(event, context, callback){
+  let jsonString = event.body;
+  let jsonObj = JSON.parse(jsonString);
   callback(null, {
     statusCode: 200,
-    body: event.queryStringParameters.text
+    body: jsonObj.text
   });
 };
